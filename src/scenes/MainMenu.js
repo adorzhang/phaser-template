@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import { GameConsts } from './GameConsts';
 import { SceneBase } from '../base/SceneBase';
+import { Helper } from '../helper/Helper';
 
 export class MainMenu extends SceneBase {
   constructor() {

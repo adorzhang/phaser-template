@@ -1,5 +1,6 @@
 import Phaser from "phaser";
 import { GameConsts } from '../scenes/GameConsts';
+import { Helper } from '../helper/Helper';
 
 export class SceneBase extends Phaser.Scene {
   constructor(config) {
