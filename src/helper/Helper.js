@@ -4,33 +4,20 @@ import { GameConsts } from '../scenes/GameConsts';
 
 export class Helper {
   //Image
-  static getImage(scene, x, y, key, origin) {
+  static getImage(scene, x, y, key) {
     let img;
     img = scene.add.image(x, y, key);
-    if (typeof origin === 'number') {
-      img.setOrigin(origin);
-    } else {
-      img.setOrigin(origin.x, origin.y);
-    }
-
     return img;
   }
   //Text
-  static getText(scene, x, y, string, color, font, align) {
-    if (align === undefined) align = 'center';
-    let text = scene.make.text({
-      x: scene.centerX,
-      y: scene.centerY + 80,
-      text: string,
-      origin: { x: 0.5, y: 0.5 },
-      style: {
-        font: font,
-        fill: color,
-        align: align,
-        wordWrap: { width: 500 }
-      }
-    });
-
+  static getText(scene, x, y, string, style, isWordWrap) {
+    if(isWordWrap === undefined) isWordWrap = false;
+    let text;
+    if(!isWordWrap){
+      text = scene.add.text(x, y, string,style);
+    }else {
+        text = scene.make.text(x, y, string, style);
+    }
     return text;
   }
   //scale

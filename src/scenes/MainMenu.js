@@ -8,7 +8,7 @@ export class MainMenu extends SceneBase {
     super({ key: 'MainMenu', active: false });
   }
   init() {
-
+    super.init();
   }
 
   preload() {
@@ -16,6 +16,6 @@ export class MainMenu extends SceneBase {
   }
 
   create() {
-
+    this.changeState(GameConsts.Scenes.Play);
   }
 }

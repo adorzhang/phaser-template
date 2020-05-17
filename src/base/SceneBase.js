@@ -6,14 +6,13 @@ export class SceneBase extends Phaser.Scene {
   constructor(config) {
     super(config);
 
-    this.centerX = GameConsts.Game.Width / 2;
-    this.centerY = GameConsts.Game.Height / 2;
-    this.gameWidth = GameConsts.Game.Width;
-    this.gameHeight = GameConsts.Game.Height;
   }
 
   init() {
-
+    this.centerX = this.sys.game.config.width / 2;
+    this.centerY = this.sys.game.config.height / 2;
+    this.gameWidth = this.sys.game.config.width;
+    this.gameHeight = this.sys.game.config.height;
   }
 
   preload() {
@@ -21,6 +20,8 @@ export class SceneBase extends Phaser.Scene {
   }
 
   create() {
+
+
 
     this.scale.on('resize', this.scaleGameContainer);
     this.background = new Phaser.GameObjects.Group(this);

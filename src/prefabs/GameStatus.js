@@ -1,8 +1,9 @@
+import Phaser from 'phaser';
+import { GameConsts } from '../scenes/GameConsts';
+let _gameStatus;
 export class GameStatus {
-  constructor(scene) {
-    this.scene = scene;
+  constructor() {
     this.data = this.load();
-    scene.LocalStorageData = this.createData();
 
     Object.defineProperty(this, "score", {
       get: function () {
@@ -23,12 +24,19 @@ export class GameStatus {
     return data;
   }
 
+  static getInstance(){
+    if(_gameStatus == null){
+        _gameStatus = new GameStatus();
+    }
+    return _gameStatus;
+  }
+
   save(){
-    localStorage.setItem(this.scene.CONFIG.StorageName, JSON.stringify(this.data));
+    localStorage.setItem(GameConsts.Game.StorageName, JSON.stringify(this.data));
   }
 
   load(){
-      let data = JSON.parse(localStorage.getItem(this.scene.CONFIG.StorageName));
+      let data = JSON.parse(localStorage.getItem(GameConsts.Game.StorageName));
       if(!data) data = this.createData();
       return data;
   }

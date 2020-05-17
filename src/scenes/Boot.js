@@ -8,7 +8,7 @@ export class Boot extends SceneBase {
     super({ key: 'Boot', active: true });
   }
   init() {
-
+    super.init();
   }
 
   preload() {

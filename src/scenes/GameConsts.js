@@ -11,10 +11,8 @@ export class GameConsts{
   };
 
   static Game = {
-    Width: 640,
-    Height: 960,
     ShowTime: 300,
-    StorageName: "udinsoft-game-demo",
+    StorageName: "phaser-template",
     ScaleZoom: 1.2,
     ScaleSpeed: 50,
     swipeMaxTime: 1000,
@@ -25,6 +23,8 @@ export class GameConsts{
     isDev: true,
     isAndroid: false,
     isWeb: true,
+    angleRange: [25, 155],
+    URL: ""
   };
 
   static Scenes = {

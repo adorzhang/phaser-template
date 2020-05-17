@@ -3,6 +3,7 @@ import { Boot } from '../scenes/Boot';
 import { Preloader } from '../scenes/Preloader';
 import { MainMenu } from '../scenes/MainMenu';
 import { Play } from '../scenes/Play';
+import { GameConsts } from '../scenes/GameConsts';
 
 let _gameEngine;
 export class GameEngine extends Phaser.Game {
@@ -14,17 +15,33 @@ export class GameEngine extends Phaser.Game {
     scenes.push(MainMenu);
     scenes.push(Play);
 
+    let windowWidth = window.innerWidth;
+    let windowHeight = window.innerHeight;
+    if (windowWidth > windowHeight) {
+      windowWidth = windowHeight / 1.8;
+    }
+    let gameWidth = windowWidth * 1334 / windowHeight;
+
     let gameConfig = {
-      width: window.innerWidth,
-      height: window.innerHeight,
-      renderer: Phaser.AUTO,
+      type: Phaser.AUTO,
+      url: GameConsts.Game.URL,
+      orientation: 'PORTRAIT',
       transparent: true,
+
+      scale: {
+        //parent: 'phaser-app',
+        mode: Phaser.Scale.SHOW_ALL,
+        autoCenter: Phaser.Scale.CENTER_BOTH,
+        width: gameWidth,
+        height: 1334
+      },
       scene: scenes,
+      //resolution			: window.devicePixelRatio,
       enableDebug: true
     }
 
     super(gameConfig);
-    this.URL = '';
+    this.URL = 'src';
     //AdManager.getInstance().prepareAdv(false);
     //AdManager.getInstance().prepareRewardedAdv(false);
   }
