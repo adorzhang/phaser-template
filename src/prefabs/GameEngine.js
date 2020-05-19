@@ -17,15 +17,20 @@ export class GameEngine extends Phaser.Game {
 
     let windowWidth = window.innerWidth;
     let windowHeight = window.innerHeight;
+    let orientation = 'PORTRAIT';
+    let gameWidth = windowWidth * 1334 / windowHeight;
+    let gameHeight = 1334;
     if (windowWidth > windowHeight) {
       windowWidth = windowHeight / 1.8;
+      orientation = 'LANDSCAPE';
+      gameHeight = windowWidth * 1334 / windowHeight;
+      gameWidth = 1334;
     }
-    let gameWidth = windowWidth * 1334 / windowHeight;
 
     let gameConfig = {
       type: Phaser.AUTO,
       url: GameConsts.Game.URL,
-      orientation: 'PORTRAIT',
+      orientation: orientation ,
       transparent: true,
 
       scale: {
@@ -33,7 +38,7 @@ export class GameEngine extends Phaser.Game {
         mode: Phaser.Scale.SHOW_ALL,
         autoCenter: Phaser.Scale.CENTER_BOTH,
         width: gameWidth,
-        height: 1334
+        height: gameHeight,
       },
       scene: scenes,
       //resolution			: window.devicePixelRatio,
