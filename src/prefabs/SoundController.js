@@ -1,9 +1,16 @@
+
+import Phaser from 'phaser';
+import { GameEngine } from './GameEngine';
+import { GameConsts } from '../scenes/GameConsts';
+import { GameStatus } from './GameStatus';
+
 let _soundController;
-class SoundController {
+export class SoundController {
   constructor() {
 
     this.currentSoundVolume = 1000;
     this.hadBeenMutedBeforePauseTriggered = false;
+    
     this.init();
   }
 
@@ -15,10 +22,7 @@ class SoundController {
   }
 
   init() {
-    let status;
-    status = "true" === localStorage.getItem("soundsMuted");
-    localStorage.setItem("soundsMuted", status);
-    this.setVolume(status ? 0 : 1);
+    this.setVolume(GameStatus.getInstance().isSoundEnabled ? 1 : 0);
   }
 
   isDecodingSupported() {
@@ -30,11 +34,9 @@ class SoundController {
   }
 
   startMusic() {
-    if ("suspended" === GameEngine.getInstance().sound.context.state) {
-      /*GameEngine.getInstance().input.on(()=>{
-          if("suspended" === GameEngine.getInstance().sound.context.state) 
-              GameEngine.getInstance().sound.context.resume();
-      });*/
+    if ("suspended" != GameEngine.getInstance().sound.context.state){
+      let bgm = GameEngine.getInstance().sound.get(GameConsts.Sounds.Bgm)
+      bgm ? bgm.play() : GameEngine.getInstance().sound.add(GameConsts.Sounds.Bgm).play();
     }
   }
 
@@ -43,17 +45,14 @@ class SoundController {
     GameEngine.getInstance().sound.mute = true;
   }
 
-  resumeAudio(scene) {
+  resumeAudio() {
     GameEngine.getInstance().sound.mute = this.hadBeenMutedBeforePauseTriggered;
-    if ("suspended" === GameEngine.getInstance().sound.context.state || GameEngine.getInstance().device.iOS)
-      this.restoreSuspendedContext(scene);
+    this.restoreSuspendedContext();
+      
   }
 
-  restoreSuspendedContext(scene) {
-    scene.input.on('pointerdown', () => {
-      if (("suspended" === GameEngine.getInstance().sound.context.state || GameEngine.getInstance().device.iOS))
-        GameEngine.getInstance().sound.context.resume();
-    })
+  restoreSuspendedContext() {
+    GameEngine.getInstance().sound.context.resume();
   }
 
   getVolume() {
@@ -71,7 +70,15 @@ class SoundController {
   playSound(name, volume, loop) {
     if (volume == undefined) volume = 1;
     if (loop == undefined) loop = false;
-    if ("suspended" != GameEngine.getInstance().sound.context.state)
+    if ("suspended" != GameEngine.getInstance().sound.context.state && GameStatus.getInstance().isSoundEnabled){
       GameEngine.getInstance().sound.play(name);
+      GameEngine.getInstance().sound.volume = volume * this.currentSoundVolume;
+      GameEngine.getInstance().sound.loop = loop;
+    }
+      
+  }
+  stopMusic(){
+    let bgm = GameEngine.getInstance().sound.get(GameConsts.Sounds.Bgm)
+    if(bgm ) bgm.stop();
   }
 }
