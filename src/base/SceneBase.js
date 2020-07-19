@@ -25,24 +25,14 @@ export class SceneBase extends Phaser.Scene {
 
     this.scale.on('resize', this.scaleGameContainer);
     this.background = new Phaser.GameObjects.Group(this);
-    //Helper.setBackgroundToGroup(this, this.background, GameConsts.Arts.BackgroundMenu);
+    Helper.setBackgroundToGroup(this, this.background, GameConsts.Arts.BackgroundMenu);
     this.gameContainer = new Phaser.GameObjects.Container(this, 0, 0);
-    //Helper.scaleContainer(this.gameContainer, this.gameWidth, this.gameHeight);
-
-    if (this.sys.sound.context.state === 'suspended') {
-			this.sys.sound.context.resume();
-		}
-
-		this.input.on('pointerdown', function (pointer) {
-			if (this.systems.sound.context.state === 'suspended') {
-				this.systems.sound.context.resume();
-			}
-		});
+    Helper.scaleContainer(this.gameContainer, this.gameWidth, this.gameHeight);
   }
 
   scaleGameContainer() {
-    //Helper.scaleContainer(this.gameContainer, this.gameWidth, this.gameHeight),
-      //Helper.setBackgroundToGroup(this, this.background, GameConsts.Arts.BackgroundMenu)
+    Helper.scaleContainer(this.gameContainer, this.gameWidth, this.gameHeight),
+      Helper.setBackgroundToGroup(this, this.background, GameConsts.Arts.BackgroundMenu)
   }
 
   updateAllChildren() {

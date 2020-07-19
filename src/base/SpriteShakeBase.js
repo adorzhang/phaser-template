@@ -3,10 +3,10 @@ import { GameConsts } from "../scenes/GameConsts";
 import { SpriteAnimationBase } from "./SpriteAnimationBase";
 
 class SpriteShakeBase extends SpriteAnimationBase {
-  constructor(scene, x, y, key, frame, isUp, delay) {
+  constructor(scene, x, y, texture, frame, isUp, delay) {
     if (isUp == undefined) isUp = false;
     if (delay == undefined) delay = Helper.getRandomIntInclusive(0, 200);
-    super(scene, x, y, key, frame);
+    super(scene, x, y, texture, frame);
     this.canPlayAnimation = false;
     this.waveHeight = GameConsts.Game.WaveSize / 2;
     this.isUp = isUp;

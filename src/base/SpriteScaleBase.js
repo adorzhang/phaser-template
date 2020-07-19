@@ -3,11 +3,11 @@ import { GameConsts } from '../scenes/GameConsts';
 import { Helper } from '../helper/Helper';
 
 export class SpriteScaleBase extends Phaser.GameObjects.Sprite {
-  constructor(scene, x, y, key, frame, scaleSize, speed, isUp) {
+  constructor(scene, x, y, texture, frame, scaleSize, speed, isUp) {
     if (scaleSize == undefined) scaleSize = GameConsts.Game.ScaleSize;
     if (speed == undefined) speed = .3;
     if (isUp == undefined) isUp = false;
-    super(scene, x, y, key, frame);
+    super(scene, x, y, texture, frame);
     this.waveHeight = 0;
     this.isUp = isUp;
     this.scaleSize = scaleSize;

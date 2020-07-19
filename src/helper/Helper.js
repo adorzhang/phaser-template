@@ -4,9 +4,9 @@ import { GameConsts } from '../scenes/GameConsts';
 
 export class Helper {
   //Image
-  static getImage(scene, x, y, key) {
+  static getImage(scene, x, y, texture, frame) {
     let img;
-    img = scene.add.image(x, y, key);
+    img = scene.add.image(x, y, texture, frame);
     return img;
   }
   //Text
@@ -18,6 +18,10 @@ export class Helper {
     }else {
         text = scene.make.text(x, y, string, style);
     }
+    return text;
+  }
+  static getBitmapText(scene, x, y, string, style, size) {
+    let text = scene.add.bitmapText(x, y, style, string, size);
     return text;
   }
   //scale
@@ -79,13 +83,13 @@ export class Helper {
   }
 
   //Background
-  static setBackground(scene, key) {
-    let bg = scene.add.image(scene.centerX, scene.centerY, key).setOrigin(.5).setInteractive();
+  static setBackground(scene, texture, frame) {
+    let bg = scene.add.image(scene.centerX, scene.centerY, texture, frame).setOrigin(.5).setInteractive();
     Helper.scaleContainerFit(bg, bg.width, bg.height);
   }
 
-  static setBackgroundToGroup(scene, group, key) {
-    let bg = scene.add.image(scene.centerX, scene.centerY, key).setOrigin(.5).setInteractive();
+  static setBackgroundToGroup(scene, group, texture, frame) {
+    let bg = scene.add.image(scene.centerX, scene.centerY, texture, frame).setOrigin(.5).setInteractive();
     Helper.scaleContainerFit(bg, bg.width, bg.height);
     bg.name = GameConsts.Arts.BackgroundImageName;
     group.add(bg);
